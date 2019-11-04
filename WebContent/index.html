@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>CreditCard-Home Page</title>
+</head>
+<body>
+	<h1>Check for Credit Card Eligibility</h1>
+	<br>
+	<form action="checkCardScore" method="post">
+		<label for="">Enter PAN Number </label>
+		<input name="panNo" id="panNo" type="text" required="required" pattern="[a-zA-Z0-9]{10,}"  maxlength="10" title="10 character alpha numeric">
+		<br>
+		<input id="submit" type="submit" value="Check" />
+	</form>
+</body>
+</html>
