@@ -2,27 +2,30 @@ package com.wipro.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.wipro.dao.CheckEligibilityDao;
+import com.wipro.dao.CheckEligibilityDaoImpl;
+import com.wipro.entity.PanCardEntity;
 
 @Service
+@Transactional
 public class CheckEligibilityService {
 	
 	@Autowired
-	CheckEligibilityDao checkEligibilityDao;
+	CheckEligibilityDaoImpl checkEligibilityDao;
 	
 	public String getPanCardScoreStatus(String panCard) {
-		Double panCardScore = getPanCardScore(panCard);
-		if(panCardScore == null) {
+		PanCardEntity panCardEntity = getPanCardScore(panCard);
+		if(panCardEntity == null) {
 			return "invalid";
 		}
 		
-		String scoreStatus = panCardScore >= 5 ?  "eligible" :  "not-eligible";
+		String scoreStatus = panCardEntity.getCreditScore() >= 5 ?  "eligible" :  "not-eligible";
 		return scoreStatus;
 	}
 	
-	public Double getPanCardScore(String panCard) {
-		return checkEligibilityDao.getPanCardScore(panCard);
+	public PanCardEntity getPanCardScore(String panCard) {
+		return checkEligibilityDao.getScore(panCard);
 	}
 
 }
